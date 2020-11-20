@@ -49,7 +49,7 @@ namespace izzitech.JST.Ambu.Models
         {
             get
             {
-                return ParsearFechaAmbu(_FechaEntregaInforme, _HoraEntregaInforme);
+                return ParsearFechaAmbu(_FechaRecibeInforme, _HoraRecibeInforme);
             }
         }
 
