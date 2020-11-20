@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>izzitech.JST.Ambu</RootNamespace>
+    <Description>Librería con modelos de la base de datos del Ambu de JST Sistemas.</Description>
+    <Company>izzitech</Company>
+    <Authors>Iván E. Sierra</Authors>
+  </PropertyGroup>
+
+</Project>
