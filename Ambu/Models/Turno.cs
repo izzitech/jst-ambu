@@ -16,7 +16,8 @@ namespace izzitech.JST.Ambu.Models
         public double Peso { get; set; }
 
         // [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public DateTime Fecha
+        [NotMapped]
+        public DateTime? Fecha
         {
             get
             {
@@ -25,12 +26,13 @@ namespace izzitech.JST.Ambu.Models
         }
 
         [Column("fecha")]
-        public string _Fecha { get; set; }
+        public DateTime? _Fecha { get; set; }
 
         [Column("hora")]
         public string _Hora { get; set; }
 
-        public DateTime FechaEntregaInforme
+        [NotMapped]
+        public DateTime? FechaEntregaInforme
         {
             get
             {
@@ -39,13 +41,13 @@ namespace izzitech.JST.Ambu.Models
         }
 
         [Column("ent_inf_fe")]
-        public string _FechaEntregaInforme { get; set; }
+        public DateTime? _FechaEntregaInforme { get; set; }
 
         [Column("ent_inf_ho")]
         public string _HoraEntregaInforme { get; set; }
 
-
-        public DateTime FechaRecibeInforme
+        [NotMapped]
+        public DateTime? FechaRecibeInforme
         {
             get
             {
@@ -54,7 +56,7 @@ namespace izzitech.JST.Ambu.Models
         }
 
         [Column("rec_inf_fe")]
-        public string _FechaRecibeInforme { get; set; }
+        public DateTime? _FechaRecibeInforme { get; set; }
 
         [Column("rec_inf_ho")]
         public string _HoraRecibeInforme { get; set; }
@@ -117,13 +119,14 @@ namespace izzitech.JST.Ambu.Models
         // [Display(Name = "eMail")]
         public string Email { get; set; }
 
-        DateTime ParsearFechaAmbu(string fecha, string hora)
+        DateTime? ParsearFechaAmbu(DateTime? fecha, string hora)
         {
-            var dateTime = new DateTime();
-            dateTime = DateTime.Parse(fecha);
-            dateTime = dateTime.AddHours(double.Parse(hora.Substring(0, 2)));
-            dateTime = dateTime.AddMinutes(double.Parse(hora.Substring(2, 2)));
-            return dateTime;
+            if (fecha == null) return null;
+            if (hora == null) return fecha;
+
+            fecha = fecha.Value.AddHours(double.Parse(hora.Substring(0, 2)));
+            fecha = fecha.Value.AddMinutes(double.Parse(hora.Substring(2, 2)));
+            return fecha;
         }
 
         int IComparable.CompareTo(object obj)
@@ -138,7 +141,11 @@ namespace izzitech.JST.Ambu.Models
     {
         public int Compare(Turno turno1, Turno turno2)
         {
-            return turno1.Fecha.CompareTo(turno2.Fecha);
+            if (turno1.Fecha == null && turno2.Fecha == null) return 0;
+            if (turno1.Fecha == null && turno2.Fecha != null) return -1;
+            if (turno1.Fecha != null && turno2.Fecha == null) return 1;
+
+            return turno1.Fecha.Value.CompareTo(turno2.Fecha.Value);
         }
     }
 }
