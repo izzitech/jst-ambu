@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net461;net472</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NLog" Version="4.7.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Broker">
+      <HintPath>..\dll\Broker\netcoreapp3.1\Broker.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

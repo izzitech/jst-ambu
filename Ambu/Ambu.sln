@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30711.63
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ambu", "Ambu.csproj", "{7C28BBD8-B5F3-4B6A-ACB4-3460491482EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ambu", "Ambu.csproj", "{7C28BBD8-B5F3-4B6A-ACB4-3460491482EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AmbuBrokerExtension", "..\AmbuBrokerExtension\AmbuBrokerExtension.csproj", "{A7EAB39F-1FE2-4D79-9B92-86503F524032}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7C28BBD8-B5F3-4B6A-ACB4-3460491482EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C28BBD8-B5F3-4B6A-ACB4-3460491482EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C28BBD8-B5F3-4B6A-ACB4-3460491482EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7EAB39F-1FE2-4D79-9B92-86503F524032}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7EAB39F-1FE2-4D79-9B92-86503F524032}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7EAB39F-1FE2-4D79-9B92-86503F524032}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7EAB39F-1FE2-4D79-9B92-86503F524032}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
