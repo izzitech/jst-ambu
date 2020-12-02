@@ -3,6 +3,7 @@ using izzitech.izzilib;
 using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace izzitech.Broker.Extensiones.AmbuBroker
@@ -19,54 +20,52 @@ namespace izzitech.Broker.Extensiones.AmbuBroker
         {
             while (Corriendo)
             {
-                string rutaArchivo;
-                if (cola.TryDequeue(out rutaArchivo))
+                if (cola.TryDequeue(out string rutaOrigen))
                 {
-                    MoverInforme(rutaArchivo);
+                    MoverInforme(rutaOrigen, _config.CarpetaDestino);
                 }
                 Thread.Sleep(100);
             }
         }
 
-        private void MoverInforme(string rutaArchivo)
+        private void MoverInforme(string archivoOrigenRuta, string rutaDestino)
         {
-            var archivo = new FileInfo(rutaArchivo);
+            var archivoOrigen = new FileInfo(archivoOrigenRuta);
+            long protocolo = JST.Ambu.Informe.ParsearProtocolo(archivoOrigen.FullName);
+            var archivoDestino = new FileInfo(JST.Ambu.Informe.Ruta(rutaDestino, protocolo));
 
-            _logger.Debug($"Renombrando el archivo {archivo.Name}");
+            Directory.CreateDirectory(archivoOrigen.DirectoryName);
 
-            try
+            if (archivoDestino.Exists)
             {
-                while (FileUtils.IsLocked(archivo.FullName)) ;
-
-                // Renombrar.
-
-                // Crear ruta al ambu con AmbuUtils.
-
-                archivo.CopyTo(Path.Combine(_config.CarpetaDestino, archivo.Name), _config.SobrescribirDestino);
-                if (_config.EliminarOrigen)
+                _logger.Warn($"El archivo {archivoDestino.FullName} ya existe... haciendo backup.");
+                var nuevaVersionCreadaCorrectamente = FileUtils.CreateNewFileRevision(archivoDestino.FullName);
+                if (!nuevaVersionCreadaCorrectamente)
                 {
-                    try
-                    {
-                        if (archivo.Exists)
-                        {
-                            while (FileUtils.IsLocked(archivo.FullName)) ;
-                            archivo.Delete();
-                        }
-                        _logger.Info($"Se ha movido el archivo {archivo.Name}");
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Warn(ex, $"No se pudo eliminar el archivo {archivo.FullName} porque '{ex.Message}'");
-                    }
-                }
-                else
-                {
-                    _logger.Info($"Se ha copiado el archivo {archivo.Name}");
+                    _logger.Warn($"No se pudo hacer backup de {archivoDestino.FullName}.");
+                    throw new Exception($"No se pudo procesar {archivoOrigen.FullName} porque no se pudo hacer un backup del informe original.");
                 }
             }
-            catch (Exception ex)
+
+            if (_config.EliminarOrigen)
             {
-                _logger.Error(ex, $"No se pudo copiar el archivo {archivo.Name} porque '{ex.Message}'");
+                try
+                {
+                    if (archivoOrigen.Exists)
+                    {
+                        while (FileUtils.IsLocked(archivoOrigen.FullName)) { Thread.Sleep(500); }
+                        archivoOrigen.Delete();
+                    }
+                    _logger.Info($"Se ha movido el archivo {archivoOrigen.Name}");
+                }
+                catch (Exception ex)
+                {
+                    _logger.Warn(ex, $"No se pudo eliminar el archivo {archivoOrigen.FullName} porque '{ex.Message}'");
+                }
+            }
+            else
+            {
+                _logger.Info($"Se ha copiado el archivo {archivoOrigen.Name}");
             }
         }
 

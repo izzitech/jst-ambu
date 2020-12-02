@@ -9,8 +9,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Ambu\Ambu.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="Broker">
       <HintPath>..\dll\Broker\netcoreapp3.1\Broker.dll</HintPath>
+    </Reference>
+    <Reference Include="FileUtilities">
+      <HintPath>..\dll\FileUtilities\FileUtilities.dll</HintPath>
     </Reference>
   </ItemGroup>
 
