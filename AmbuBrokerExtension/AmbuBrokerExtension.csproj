@@ -1,7 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp3.1;net461;net472</TargetFrameworks>
+    <TargetFramework>net472</TargetFramework>
+    <AssemblyName>izzitech.Broker.Extensiones.AmbuBroker</AssemblyName>
+    <RootNamespace>izzitech.Broker.Extensiones.AmbuBroker</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,11 +15,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="Broker">
-      <HintPath>..\dll\Broker\netcoreapp3.1\Broker.dll</HintPath>
+    <Reference Include="izzitech.Broker">
+      <HintPath>..\dll\Broker\net472\izzitech.Broker.dll</HintPath>
     </Reference>
-    <Reference Include="FileUtilities">
-      <HintPath>..\dll\FileUtilities\FileUtilities.dll</HintPath>
+    <Reference Include="izzitech.FileUtils">
+      <HintPath>..\dll\FileUtilities\izzitech.FileUtils.dll</HintPath>
     </Reference>
   </ItemGroup>
 

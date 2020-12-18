@@ -12,5 +12,6 @@ namespace izzitech.Broker.Extensiones.AmbuBroker.Models
         public bool SobrescribirDestino { get; set; }
         public bool EliminarOrigen { get; set; }
         public string Filtro { get; set; }
+        public bool EvitarArchivosTemporales { get; set; }
     }
 }
