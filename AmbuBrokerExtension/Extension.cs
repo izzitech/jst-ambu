@@ -94,6 +94,12 @@ namespace izzitech.Broker.Extensiones.AmbuBroker
             var archivoDestino = new FileInfo(JST.Ambu.Informe.Ruta(_config.CarpetaDestino, protocolo));
             Directory.CreateDirectory(archivoDestino.DirectoryName);
 
+            if (_config.SobrescribirDestino)
+            {
+                archivoDestino.HacerBak(true);
+            }
+            archivo.CopyTo(archivoDestino.FullName, _config.SobrescribirDestino);
+
 
             if (_config.EliminarOrigen)
             {
@@ -111,43 +117,6 @@ namespace izzitech.Broker.Extensiones.AmbuBroker
             {
                 _logger.Info($"Se ha copiado el archivo {archivo.Name}");
             }
-
-
-            try
-            {
-                if (_config.SobrescribirDestino)
-                {
-                    destino.HacerBak(true);
-                }
-                 archivo.CopyTo(archivoDestino.FullName, _config.SobrescribirDestino);
-
-                if (_config.EliminarOrigen)
-                {
-                    try
-                    {
-                        origen.Delete();
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.Warn(ex, $"No se pudo eliminar el archivo {origen.FullName} porque '{ex.Message}'");
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.Warn(ex, $"ocurrió una excepción de Microsoft Word, porque {ex.Message}");
-                pasajero.Intentos++;
-                pasajero.UltimoError = ex;
-                if (pasajero.Intentos < CantidadMaximaDeReintentos)
-                {
-                    pasajeros.Enqueue(pasajero);
-                }
-                else
-                {
-                    _logger.Error(ex, $"El pasajero {pasajero.Ruta} se elimina del transporte luego de {pasajero.Intentos} intentos. Por favor, cierre manualmente los procesos abiertos de Microsoft Word.");
-                }
-            }
-
         }
 
         public void Iniciar()
