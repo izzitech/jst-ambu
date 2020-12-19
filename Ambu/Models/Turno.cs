@@ -15,6 +15,7 @@ namespace izzitech.JST.Ambu.Models
 
         public double Peso { get; set; }
 
+        // El siguiente campo genera problemas con las Queries de EntityFramework Core.
         // [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [NotMapped]
         public DateTime? Fecha
@@ -24,13 +25,14 @@ namespace izzitech.JST.Ambu.Models
                 return ParsearFechaAmbu(_Fecha, _Hora);
             }
         }
-
+        // Estos campos son los que se utilizan para EntityFramework Core.
         [Column("fecha")]
         public DateTime? _Fecha { get; set; }
 
         [Column("hora")]
         public string _Hora { get; set; }
 
+        // El siguiente campo genera problemas con las Queries de EntityFramework Core.
         [NotMapped]
         public DateTime? FechaEntregaInforme
         {
@@ -40,12 +42,14 @@ namespace izzitech.JST.Ambu.Models
             }
         }
 
+        // Estos campos son los que se utilizan para EntityFramework Core.
         [Column("ent_inf_fe")]
         public DateTime? _FechaEntregaInforme { get; set; }
 
         [Column("ent_inf_ho")]
         public string _HoraEntregaInforme { get; set; }
 
+        // El siguiente campo genera problemas con las Queries de EntityFramework Core.
         [NotMapped]
         public DateTime? FechaRecibeInforme
         {
@@ -55,11 +59,63 @@ namespace izzitech.JST.Ambu.Models
             }
         }
 
+        // Estos campos son los que se utilizan para EntityFramework Core.
         [Column("rec_inf_fe")]
         public DateTime? _FechaRecibeInforme { get; set; }
 
         [Column("rec_inf_ho")]
         public string _HoraRecibeInforme { get; set; }
+
+        // El siguiente campo genera problemas con las Queries de EntityFramework Core.
+        [NotMapped]
+        public DateTime? HorarioDeLlegada
+        {
+            get
+            {
+                // Del mal diseño del ambulatorio que no guarda fechas verdaderas, tenemos que asumir que el paciente
+                // llegó el día del turno y no un día incorrecto.
+                return ParsearFechaAmbu(_Fecha, _HoraLlega);
+            }
+        }
+
+        // Este es el campo que se utilizan para EntityFramework Core.
+        [Column("hora_llega")]
+        public string _HoraLlega { get; set; }
+
+        // El siguiente campo genera problemas con las Queries de EntityFramework Core.
+        // Asumo que este es el horario del "PASA"
+        [NotMapped]
+        public DateTime? HorarioDeIngreso
+        {
+            get
+            {
+                // Del mal diseño del ambulatorio que no guarda fechas verdaderas, tenemos que asumir que el paciente
+                // llegó el día del turno y no un día incorrecto.
+                return ParsearFechaAmbu(_Fecha, _HoraIngresa);
+            }
+        }
+
+        // Este es el campo que se utilizan para EntityFramework Core.
+        [Column("hora_ingre")]
+        public string _HoraIngresa { get; set; }
+
+        /* El siguiente código genera error, para variar. Además no se usa.
+        // El siguiente campo genera problemas con las Queries de EntityFramework Core.
+        [NotMapped]
+        public DateTime? HorarioDeSalida
+        {
+            get
+            {
+                // Del mal diseño del ambulatorio que no guarda fechas verdaderas, tenemos que asumir que el paciente
+                // llegó el día del turno y no un día incorrecto.
+                return ParsearFechaAmbu(_Fecha, _HoraSale);
+            }
+        }
+
+        // Este es el campo que se utilizan para EntityFramework Core.
+        [Column("hora_sale")]
+        public string _HoraSale { get; set; }
+        */
 
         [Column("dni")]
         public long Dni { get; set; }
