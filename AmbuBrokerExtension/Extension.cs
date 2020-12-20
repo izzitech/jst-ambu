@@ -16,6 +16,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using izzitech.FileUtils;
 using izzitech.FileUtils;
+using System.Text.RegularExpressions;
 
 namespace izzitech.Broker.Extensiones.AmbuBroker
 {
@@ -38,8 +39,11 @@ namespace izzitech.Broker.Extensiones.AmbuBroker
                 {
                     try
                     {
-                        CopiarArchivo(pasajero.Ruta);
-                        pasajero.UltimoError = null;
+                        if (ElPasajeroEsValido(pasajero))
+                        {
+                            CopiarArchivo(pasajero.Ruta);
+                            pasajero.UltimoError = null;
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -64,6 +68,11 @@ namespace izzitech.Broker.Extensiones.AmbuBroker
                     Thread.Sleep(100);
                 }
             }
+        }
+        private bool ElPasajeroEsValido(Pasajero pasajero)
+        {
+            var fileInfo = new FileInfo(pasajero.Ruta);
+            return Regex.IsMatch(fileInfo.Name, @"\d{8}.doc");
         }
 
         private void CopiarArchivo(string rutaArchivo)
