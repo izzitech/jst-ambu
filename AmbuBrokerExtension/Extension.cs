@@ -92,12 +92,16 @@ namespace izzitech.Broker.Extensiones.AmbuBroker
 
             long protocolo = JST.Ambu.Informe.ParsearProtocolo(rutaArchivo);
             var archivoDestino = new FileInfo(JST.Ambu.Informe.Ruta(_config.CarpetaDestino, protocolo));
+
+            _logger.Debug($"Creando el directorio {archivoDestino.DirectoryName}");
             Directory.CreateDirectory(archivoDestino.DirectoryName);
 
             if (_config.SobrescribirDestino)
             {
                 archivoDestino.HacerBak(true);
             }
+
+            _logger.Debug($"Copiando {archivoDestino.FullName}");
             archivo.CopyTo(archivoDestino.FullName, _config.SobrescribirDestino);
 
 
