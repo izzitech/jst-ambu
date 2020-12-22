@@ -178,7 +178,7 @@ namespace izzitech.JST.Ambu.Models
         DateTime? ParsearFechaAmbu(DateTime? fecha, string hora)
         {
             if (fecha == null) return null;
-            if (hora == null) return fecha;
+            if (string.IsNullOrWhiteSpace(hora)) return fecha;
 
             fecha = fecha.Value.AddHours(double.Parse(hora.Substring(0, 2)));
             fecha = fecha.Value.AddMinutes(double.Parse(hora.Substring(2, 2)));

@@ -6,7 +6,7 @@
     <Description>Librería con modelos de la base de datos del Ambu de JST Sistemas.</Description>
     <Company>izzitech</Company>
     <Authors>Iván E. Sierra</Authors>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
