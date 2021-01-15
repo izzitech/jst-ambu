@@ -153,6 +153,24 @@ namespace izzitech.JST.Ambu.Models
         // [Display(Name = "Matrícula")]
         public int Matricula { get; set; }
 
+        [NotMapped]
+        public bool PidioMedico { 
+            get {
+                if(!String.IsNullOrWhiteSpace(_PidioMedico) &&
+                    _PidioMedico == "S")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            set { _PidioMedico = value ? "S" : "N"; } }
+
+        [Column("pidio_med")]
+        public string _PidioMedico { get; set; }
+
         // [Display(Name = "Médico informante")]
 
         // [Display(Name = "Dirección")]
