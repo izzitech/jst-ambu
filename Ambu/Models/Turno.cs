@@ -16,7 +16,7 @@ namespace izzitech.JST.Ambu.Models
         public double Peso { get; set; }
 
         // El siguiente campo genera problemas con las Queries de EntityFramework Core.
-        // [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+
         [NotMapped]
         public DateTime? Fecha
         {
@@ -120,15 +120,12 @@ namespace izzitech.JST.Ambu.Models
         [Column("dni")]
         public long Dni { get; set; }
 
-        // [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         [Column("nacio")]
         public DateTime? Nacimiento { get; set; }
 
-        // [Display(Name = "ID médico referente")]
         [Column("med_solic")]
         public int MedicoReferenteId { get; set; }
 
-        // [Display(Name = "Médico referente")]
         [Column("nmed_solic")]
         public string MedicoReferenteNombre { get; set; }
 
@@ -146,11 +143,9 @@ namespace izzitech.JST.Ambu.Models
 
         public string Localidad { get; set; }
 
-        // [Display(Name = "Género")]
         [Column("sexo")]
         public string Genero { get; set; }
 
-        // [Display(Name = "Matrícula")]
         public int Matricula { get; set; }
 
         [NotMapped]
@@ -171,26 +166,22 @@ namespace izzitech.JST.Ambu.Models
         [Column("pidio_med")]
         public string _PidioMedico { get; set; }
 
-        // [Display(Name = "Médico informante")]
+        [Column("matricula4")]
+        public int MatriculaQueInforma { get; set; }
 
-        // [Display(Name = "Dirección")]
         public string Direccion { get; set; }
 
-        // [Display(Name = "Teléfono")]
         public string Telefono { get; set; }
 
-        // [Display(Name = "Obra social")]
         public string Obrasocial { get; set; }
         public string Nbeneos { get; set; }
 
         public string Nota { get; set; }
         public string Nota2 { get; set; }
 
-        // [Display(Name = "Atención de")]
         [Column("clave")]
         public string AtendidoPor { get; set; }
 
-        // [Display(Name = "eMail")]
         public string Email { get; set; }
 
         DateTime? ParsearFechaAmbu(DateTime? fecha, string hora)
@@ -198,9 +189,16 @@ namespace izzitech.JST.Ambu.Models
             if (fecha == null) return null;
             if (string.IsNullOrWhiteSpace(hora)) return fecha;
 
-            fecha = fecha.Value.AddHours(double.Parse(hora.Substring(0, 2)));
-            fecha = fecha.Value.AddMinutes(double.Parse(hora.Substring(2, 2)));
-            return fecha;
+            try
+            {
+                fecha = fecha.Value.AddHours(double.Parse(hora.Substring(0, 2)));
+                fecha = fecha.Value.AddMinutes(double.Parse(hora.Substring(2, 2)));
+                return fecha;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         int IComparable.CompareTo(object obj)

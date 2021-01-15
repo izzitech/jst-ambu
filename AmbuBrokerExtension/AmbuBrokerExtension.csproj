@@ -4,6 +4,7 @@
     <TargetFramework>net472</TargetFramework>
     <AssemblyName>izzitech.Broker.Extensiones.AmbuBroker</AssemblyName>
     <RootNamespace>izzitech.Broker.Extensiones.AmbuBroker</RootNamespace>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
