@@ -5,10 +5,14 @@
     <AssemblyName>izzitech.Broker.Extensiones.AmbuBroker</AssemblyName>
     <RootNamespace>izzitech.Broker.Extensiones.AmbuBroker</RootNamespace>
     <Version>1.1.0</Version>
+    <PackageId>izzitech.Broker.Extensiones.CopiarInformesDelAmbu</PackageId>
+    <Company>izzitech</Company>
+    <Authors>Iván E. Sierra</Authors>
+    <Product>Extension de izzibroker Copiar Informes del Ambu</Product>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLog" Version="4.7.5" />
+    <PackageReference Include="NLog" Version="4.7.10" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,11 +20,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="izzitech.Broker">
-      <HintPath>..\dll\Broker\net472\izzitech.Broker.dll</HintPath>
+    <Reference Include="izzitech.Broker.Configurador">
+      <HintPath>..\..\izzibroker\src\Configurador\bin\Debug\izzitech.Broker.Configurador.dll</HintPath>
     </Reference>
     <Reference Include="izzitech.FileUtils">
       <HintPath>..\dll\FileUtilities\izzitech.FileUtils.dll</HintPath>
+    </Reference>
+    <Reference Include="Transportes">
+      <HintPath>..\..\izzibroker\src\Transportes\bin\Debug\Transportes.dll</HintPath>
     </Reference>
   </ItemGroup>
 

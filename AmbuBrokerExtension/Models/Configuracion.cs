@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace izzitech.Broker.Extensiones.AmbuBroker.Models
 {
@@ -13,5 +11,17 @@ namespace izzitech.Broker.Extensiones.AmbuBroker.Models
         public bool EliminarOrigen { get; set; }
         public string Filtro { get; set; }
         public bool EvitarArchivosTemporales { get; set; }
+
+        public static Configuracion ObtenerConfiguracionPorDefecto()
+        {
+            return new Configuracion()
+            {
+                CarpetaOrigen = AppContext.BaseDirectory,
+                CarpetaDestino = AppContext.BaseDirectory,
+                Filtro = "*",
+                EvitarArchivosTemporales = true,
+                SobrescribirDestino = false
+            };
+        }
     }
 }
